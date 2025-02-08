@@ -3,6 +3,12 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Token {
   symbol: string;
@@ -48,34 +54,52 @@ export function PortfolioHeatmap({
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 auto-rows-fr">
-        {sortedTokens.map((token) => (
-          <Card
-            key={token.symbol}
-            style={{
-              backgroundColor: getBackgroundColor(token.percentage),
-              gridArea: getGridAreaSize(token.percentage),
-            }}
-            className="p-4 transition-all hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="h-full flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-lg">{token.symbol}</h3>
-                <p className="text-sm text-muted-foreground">{token.name}</p>
-              </div>
-              <div className="mt-4">
-                <p className="text-lg font-semibold">
-                  ${formatNumber(token.value)}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {token.percentage.toFixed(2)}%
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {formatNumber(token.balance)} {token.symbol}
-                </p>
-              </div>
-            </div>
-          </Card>
-        ))}
+        <TooltipProvider>
+          {sortedTokens.map((token) => (
+            <Tooltip key={token.symbol}>
+              <TooltipTrigger asChild>
+                <Card
+                  style={{
+                    backgroundColor: getBackgroundColor(token.percentage),
+                    gridArea: getGridAreaSize(token.percentage),
+                  }}
+                  className="p-4 transition-all hover:scale-[1.02] cursor-pointer"
+                >
+                  <div className="h-full flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-bold text-lg">{token.symbol}</h3>
+                      <p className="text-sm text-muted-foreground">{token.name}</p>
+                    </div>
+                    <div className="mt-4">
+                      <p className="text-lg font-semibold">
+                        ${formatNumber(token.value)}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {token.percentage.toFixed(2)}%
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {formatNumber(token.balance)} {token.symbol}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </TooltipTrigger>
+              <TooltipContent className="p-4 space-y-2">
+                <div className="space-y-1.5">
+                  <h4 className="font-semibold">{token.name} ({token.symbol})</h4>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <span className="text-muted-foreground">Balance:</span>
+                    <span className="text-right">{formatNumber(token.balance)} {token.symbol}</span>
+                    <span className="text-muted-foreground">Value:</span>
+                    <span className="text-right">${formatNumber(token.value)}</span>
+                    <span className="text-muted-foreground">Portfolio %:</span>
+                    <span className="text-right">{token.percentage.toFixed(2)}%</span>
+                  </div>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </TooltipProvider>
       </div>
     </div>
   );
