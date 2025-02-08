@@ -1,9 +1,5 @@
-import React from "react";
+import { DashboardMain } from "@/components/layout/dashboard/dashboard-main";
 
-export const dynamic = "force-static";
-
-function DashboardPage() {
-  return <div className="flex items-center justify-center h-screen"></div>;
+export default function DashboardPage() {
+  return <DashboardMain />;
 }
-
-export default DashboardPage;
