@@ -1,47 +1,36 @@
 "use client";
 
-import * as React from "react";
-import { Moon, Sun, Monitor } from "lucide-react";
+import { useEffect, useState } from "react";
+
+import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
-
 export function ThemeToggle() {
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const themes: Array<"light" | "dark" | "system"> = [
-    "light",
-    "dark",
-    "system",
-  ];
-  const icons = {
-    light: <Sun className="h-[1.2rem] w-[1.2rem]" />,
-    dark: <Moon className="h-[1.2rem] w-[1.2rem]" />,
-    system: <Monitor className="h-[1.2rem] w-[1.2rem]" />,
-  };
 
-  const toggleTheme = () => {
-    const currentIndex = theme
-      ? themes.indexOf(theme as "light" | "dark" | "system")
-      : 0;
-    const nextIndex = (currentIndex + 1) % themes.length;
-    setTheme(themes[nextIndex]);
-  };
-
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <Button
-      variant="default"
-      size="icon"
-      onClick={toggleTheme}
-      className="rounded-2xl"
+    <button
+      onClick={() => {
+        if (theme === "light") setTheme("dark");
+        else if (theme === "dark") setTheme("system");
+        else setTheme("light");
+      }}
+      className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted"
+      aria-label="Toggle theme"
+      title={`Current theme: ${theme}`}
     >
-      {mounted && icons[(theme as "light" | "dark" | "system") || "system"]}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+      {theme === "light" && <Sun className="h-4 w-4" />}
+      {theme === "dark" && <Moon className="h-4 w-4" />}
+      {theme === "system" && <Monitor className="h-4 w-4" />}
+    </button>
   );
 }

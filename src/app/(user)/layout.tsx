@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import { AppSidebar } from "@/components/layout/dashboard/sidebar/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default async function UserLayout({
