@@ -36,7 +36,7 @@ function PortfolioPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-8">
+    <div className="container mx-auto px-20 py-10 space-y-8">
       <h1 className="text-3xl font-bold">My Portfolio</h1>
 
       {error && <p className="text-red-500">{error}</p>}
