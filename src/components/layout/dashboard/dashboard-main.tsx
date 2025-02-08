@@ -62,10 +62,10 @@ export function DashboardMain() {
   return (
     <div className="flex h-screen flex-col">
       {/* Top Section - Typing Animation */}
-      <div className="flex-none pt-12">
+      <div className="flex-none pt-12 px-4 sm:px-6">
         <BlurFade delay={0.2}>
           <TypingAnimation
-            className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-center text-4xl font-semibold tracking-tight text-transparent md:text-4xl lg:text-5xl"
+            className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-center text-3xl sm:text-4xl font-semibold tracking-tight text-transparent md:text-4xl lg:text-5xl"
             duration={50}
             text="How may I assist you today?"
           />
@@ -73,12 +73,12 @@ export function DashboardMain() {
       </div>
 
       {/* Middle Section - Scrollable Content */}
-      <div className="mx-auto my-8 flex-1 w-full max-w-3xl overflow-y-auto px-6">
+      <div className="mx-auto my-8 flex-1 w-full max-w-3xl overflow-y-auto px-4 sm:px-6">
         <div className="space-y-8">
           <BlurFade delay={0.2}>
             <div className="space-y-2">
               <SectionTitle>Suggestions</SectionTitle>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {suggestions.map((suggestion: Suggestion, index: number) => (
                   <SuggestionCard
                     key={suggestion.title}
@@ -94,7 +94,7 @@ export function DashboardMain() {
       </div>
 
       {/* Bottom Section - Input */}
-      <div className="flex-none pb-6 px-6">
+      <div className="flex-none pb-6 px-4 sm:px-6">
         <BlurFade delay={0.1}>
           <div className="mx-auto w-full max-w-3xl">
             <ConversationInput

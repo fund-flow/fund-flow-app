@@ -23,9 +23,9 @@ interface TokenTableProps {
 
 export function TokenTable({ tokens }: TokenTableProps) {
   return (
-    <div className="mt-12">
+    <div className="mt-12 overflow-x-auto">
       <h2 className="text-2xl font-bold mb-6">Token Breakdown</h2>
-      <div className="rounded-md border">
+      <div className="rounded-md border min-w-[600px]">
         <Table>
           <TableHeader>
             <TableRow>

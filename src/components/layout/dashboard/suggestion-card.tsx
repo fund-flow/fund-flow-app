@@ -23,13 +23,13 @@ export function SuggestionCard({
     >
       <Card
         onClick={() => onSelect(subtitle)}
-        className="group flex h-32 cursor-pointer flex-col justify-between p-4 transition-colors hover:bg-muted/50"
+        className="group flex h-32 cursor-pointer flex-col justify-between p-4 transition-colors hover:bg-muted/50 sm:h-40"
       >
         <div>
-          <h3 className="font-medium">{title}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+          <h3 className="font-medium text-base sm:text-lg">{title}</h3>
+          <p className="mt-1 text-xs sm:text-sm text-muted-foreground">{subtitle}</p>
         </div>
-        <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
       </Card>
     </motion.div>
   );

@@ -47,7 +47,7 @@ export function PortfolioHeatmap({
         <div className="text-2xl font-bold">${formatNumber(totalValue)}</div>
       </div>
 
-      <div className="grid grid-cols-6 gap-1 auto-rows-fr">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 auto-rows-fr">
         {sortedTokens.map((token) => (
           <Card
             key={token.symbol}
