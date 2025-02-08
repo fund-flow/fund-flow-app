@@ -68,7 +68,9 @@ export function PortfolioHeatmap({
                   <div className="h-full flex flex-col justify-between">
                     <div>
                       <h3 className="font-bold text-lg">{token.symbol}</h3>
-                      <p className="text-sm text-muted-foreground">{token.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {token.name}
+                      </p>
                     </div>
                     <div className="mt-4">
                       <p className="text-lg font-semibold">
@@ -84,16 +86,24 @@ export function PortfolioHeatmap({
                   </div>
                 </Card>
               </TooltipTrigger>
-              <TooltipContent className="p-4 space-y-2">
+              <TooltipContent className="p-4 space-y-2" side="right">
                 <div className="space-y-1.5">
-                  <h4 className="font-semibold">{token.name} ({token.symbol})</h4>
+                  <h4 className="font-semibold">
+                    {token.name} ({token.symbol})
+                  </h4>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
                     <span className="text-muted-foreground">Balance:</span>
-                    <span className="text-right">{formatNumber(token.balance)} {token.symbol}</span>
+                    <span className="text-right">
+                      {formatNumber(token.balance)} {token.symbol}
+                    </span>
                     <span className="text-muted-foreground">Value:</span>
-                    <span className="text-right">${formatNumber(token.value)}</span>
+                    <span className="text-right">
+                      ${formatNumber(token.value)}
+                    </span>
                     <span className="text-muted-foreground">Portfolio %:</span>
-                    <span className="text-right">{token.percentage.toFixed(2)}%</span>
+                    <span className="text-right">
+                      {token.percentage.toFixed(2)}%
+                    </span>
                   </div>
                 </div>
               </TooltipContent>
