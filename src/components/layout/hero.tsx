@@ -6,7 +6,8 @@ import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
+import { motion } from "framer-motion";
 const Hero = () => {
   const productRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -19,16 +20,10 @@ const Hero = () => {
   return (
     <section className="relative pt-[5.75rem]" ref={productRef}>
       {/* Content */}
-      <div className="relative mx-auto max-w-screen-xl px-6 pb-6 pt-12 text-center md:pb-8 md:pt-16">
-        <div className="mx-auto max-w-3xl">
+      <div className="relative mx-auto px-4 pb-6 pt-12 text-center md:px-6 lg:px-8 md:pb-12 md:pt-16">
+        <div className="mx-auto max-w-6xl">
           <BlurFade delay={0.3}>
             <div className="pointer-events-none select-none">
-              <div className="inline-flex items-center rounded-full border border-primary/20 bg-muted/80 px-4 py-1.5 shadow-lg backdrop-blur-sm">
-                <span className="text-sm font-medium text-primary">
-                  No Fuss, Just Flow 💰
-                </span>
-              </div>
-
               <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
                 Your Personal <br />
                 <AnimatedShinyText className="inline">
@@ -53,6 +48,36 @@ const Hero = () => {
               </Button>
             </div>
           </BlurFade>
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: [20, -5, 0],
+            }}
+            transition={{
+              duration: 0.4,
+              ease: [0.4, 0.0, 0.2, 1],
+              delay: 0.8,
+            }}
+            className="mx-auto mt-8 px-4 sm:px-6 lg:px-8"
+          >
+            <div className="relative rounded-lg w-full mx-auto overflow-hidden">
+              <div className="aspect-[16/9] w-full">
+                <Image
+                  src="/assets/fund-flow-banner-v2.png"
+                  width={1920}
+                  height={1080}
+                  alt="Fund Flow Banner"
+                  className="w-full h-full rounded-3xl object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
