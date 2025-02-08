@@ -59,6 +59,9 @@ importers:
       next:
         specifier: 14.2.23
         version: 14.2.23(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-nprogress-bar:
+        specifier: ^2.4.4
+        version: 2.4.4
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3913,6 +3916,9 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  next-nprogress-bar@2.4.4:
+    resolution: {integrity: sha512-SeOtJCh9T0+RCGH+fl1SxHUt5uU3wH3emhVBZiKCbTHbGYYBho3o2DkuwCjoI7IxV5uGjHBuSVJI2+v3pMC64A==}
+
   next-themes@0.4.4:
     resolution: {integrity: sha512-LDQ2qIOJF0VnuVrrMSMLrWGjRMkq+0mpgl6e0juCLqdJ+oo8Q84JRWT6Wh11VDQKkMMe+dVzDKLWs5n87T+PkQ==}
     peerDependencies:
@@ -3989,6 +3995,9 @@ packages:
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
+
+  nprogress-v2@1.0.4:
+    resolution: {integrity: sha512-HPhTEgqsQMFXXuaftvu6bevqEXvcQ/hogvkAswlcNyS9eRGjvo7wZY1O4H3aZS4Uq8oWSO6sL3dOj6Oq/ZJN5A==}
 
   obj-multiplex@1.0.0:
     resolution: {integrity: sha512-0GNJAOsHoBHeNTvl5Vt6IWnpUEcc3uSRxzBri7EDyIcMgYvnY2JL2qdeV5zTMjWQX5OHcD5amcW2HFfDh0gjIA==}
@@ -10201,6 +10210,10 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
+  next-nprogress-bar@2.4.4:
+    dependencies:
+      nprogress-v2: 1.0.4
+
   next-themes@0.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -10267,6 +10280,8 @@ snapshots:
   npm-run-path@4.0.1:
     dependencies:
       path-key: 3.1.1
+
+  nprogress-v2@1.0.4: {}
 
   obj-multiplex@1.0.0:
     dependencies:
