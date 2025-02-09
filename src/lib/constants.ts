@@ -24,13 +24,13 @@ export const ExploreItems = [
     icon: LayoutDashboard,
     external: false,
   },
-  {
-    title: "Portfolio",
-    url: "/portfolio",
-    segment: "portfolio",
-    icon: PiggyBank,
-    external: false,
-  },
+  // {
+  //   title: "Portfolio",
+  //   url: "/portfolio",
+  //   segment: "portfolio",
+  //   icon: PiggyBank,
+  //   external: false,
+  // },
 ] as const;
 
 /**
