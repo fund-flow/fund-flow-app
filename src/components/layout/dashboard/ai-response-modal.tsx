@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { formatNumber } from "@/lib/utils";
+import { useWallets } from "@privy-io/react-auth";
 
 interface AIResponseModalProps {
   open: boolean;
@@ -27,11 +28,15 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const { wallets } = useWallets();
 
   // Close modal if clicked outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     }
@@ -53,10 +58,11 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
 
     try {
       // TODO Replace with backend API endpoint
-      const response = await fetch("https://your-backend.com/api/automate-purchase", {
+      const response = await fetch("https://localhost:3050/api/v1/swap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          userWallet: wallets[0],
           assets: data.assets,
           allocations: data.allocations,
         }),
@@ -80,7 +86,10 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div ref={modalRef} className="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-[90%] max-w-2xl p-6">
+      <div
+        ref={modalRef}
+        className="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-[90%] max-w-2xl p-6"
+      >
         <h2 className="text-2xl font-bold mb-4">AI Portfolio Recommendation</h2>
 
         <div className="rounded-md border min-w-[400px]">
@@ -94,7 +103,9 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
             </TableHeader>
             <TableBody>
               {data.assets.map((asset, index) => {
-                const analysisItem = data.analysis.find((item) => item.asset_name === asset);
+                const analysisItem = data.analysis.find(
+                  (item) => item.asset_name === asset
+                );
 
                 return (
                   <TableRow key={asset}>
@@ -103,7 +114,9 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
                       {formatNumber(data.allocations[index] * 100)}%
                     </TableCell>
                     <TableCell className="text-left">
-                      {analysisItem ? analysisItem.reason : "No analysis available"}
+                      {analysisItem
+                        ? analysisItem.reason
+                        : "No analysis available"}
                     </TableCell>
                   </TableRow>
                 );
@@ -118,7 +131,10 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
 
         {/* Buttons */}
         <div className="flex justify-center mt-6 space-x-3">
-          <Button onClick={onClose} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+          <Button
+            onClick={onClose}
+            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg"
+          >
             Close
           </Button>
           <Button
