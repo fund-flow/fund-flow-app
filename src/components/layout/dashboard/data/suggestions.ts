@@ -5,17 +5,16 @@ interface Suggestion {
 
 const suggestions: Suggestion[] = [
   {
-    title: "Smart Crypto Investing",
-    subtitle:
-      "New to crypto? Let AI guide your investments based on your risk preferences.",
+    title: "Diversified Portfolio Builder",
+    subtitle: "Balance your investments with AI-optimized asset allocation."
   },
   {
-    title: "Portfolio Management",
-    subtitle: "Analyze my investment portfolio and suggest improvements",
+    title: "Risk-Based Investment Planning",
+    subtitle: "Not sure about investments? Let AI match assets to your risk tolerance.",
   },
   {
-    title: "Market Analysis",
-    subtitle: "Analyze the market and suggest trading strategies",
+    title: "Time-Horizon Based Strategy",
+    subtitle: "Plan investments based on your short(1-6 months) or long-term goals(6+ months).",
   },
 ];
 

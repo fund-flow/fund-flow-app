@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import BlurFade from "@/components/ui/blur-fade";
 import TypingAnimation from "@/components/ui/typing-animation";
 import { ConversationInput } from "@/components/layout/dashboard/conversation-input";
+import { AIInput } from "@/components/layout/dashboard/ai-input";
 import {
   getRandomSuggestions,
   type Suggestion,
@@ -46,17 +47,21 @@ export function DashboardMain() {
     return null;
   }
 
-  const handleSend = async (value: string) => {
-    if (!value.trim()) return;
+  // const handleSend = async (value: string) => {
+  //   if (!value.trim()) return;
 
-    const fakeEvent = {
-      preventDefault: () => {},
-      type: "submit",
-    } as React.FormEvent;
+  //   const fakeEvent = {
+  //     preventDefault: () => {},
+  //     type: "submit",
+  //   } as React.FormEvent;
 
-    await handleSubmit(fakeEvent, {
-      data: value,
-    });
+  //   await handleSubmit(fakeEvent, {
+  //     data: value,
+  //   });
+  // };
+  const handleAIResponse = (data: any) => {
+    console.log("AI Response:", data);
+    // TODO: Display the recommended assets from the AI
   };
 
   return (
@@ -73,7 +78,7 @@ export function DashboardMain() {
       </div>
 
       {/* Middle Section - Scrollable Content */}
-      <div className="mx-auto my-8 flex-1 w-full max-w-3xl overflow-y-auto px-4 sm:px-6">
+      <div className="mx-auto my-8 w-full max-w-3xl px-4 sm:px-6">
         <div className="space-y-8">
           <BlurFade delay={0.2}>
             <div className="space-y-2">
@@ -97,11 +102,12 @@ export function DashboardMain() {
       <div className="flex-none pb-6 px-4 sm:px-6">
         <BlurFade delay={0.1}>
           <div className="mx-auto w-full max-w-3xl">
-            <ConversationInput
+            {/* <ConversationInput
               value={input}
               onChange={setInput}
               onSubmit={handleSend}
-            />
+            /> */}
+            <AIInput onResult={handleAIResponse}  />
           </div>
         </BlurFade>
       </div>
