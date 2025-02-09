@@ -8,6 +8,7 @@ import BlurFade from "@/components/ui/blur-fade";
 import TypingAnimation from "@/components/ui/typing-animation";
 import { ConversationInput } from "@/components/layout/dashboard/conversation-input";
 import { AIInput } from "@/components/layout/dashboard/ai-input";
+import { AIResponseModal } from "@/components/layout/dashboard/ai-response-modal";
 import {
   getRandomSuggestions,
   type Suggestion,
@@ -30,6 +31,8 @@ export function DashboardMain() {
   const [chatId] = useState(() => uuidv4());
   const [isClient, setIsClient] = useState(false);
   const suggestions = useMemo(() => getRandomSuggestions(4), []); 
+  const [aiResponse, setAiResponse] = useState<{ assets: string[]; allocations: number[]; analysis: { asset_name: string; reason: string }[] } | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { input, handleSubmit, setInput } = useChat({
     id: chatId,
@@ -61,7 +64,10 @@ export function DashboardMain() {
   // };
   const handleAIResponse = (data: any) => {
     console.log("AI Response:", data);
-    // TODO: Display the recommended assets from the AI
+    if (data && Array.isArray(data.assets) && Array.isArray(data.allocations) && Array.isArray(data.analysis)) {
+      setAiResponse(data);
+      setModalOpen(true);
+    }
   };
 
   return (
@@ -99,18 +105,15 @@ export function DashboardMain() {
       </div>
 
       {/* Bottom Section - Input */}
-      <div className="flex-none pb-6 px-4 sm:px-6">
-        <BlurFade delay={0.1}>
-          <div className="mx-auto w-full max-w-3xl">
-            {/* <ConversationInput
-              value={input}
-              onChange={setInput}
-              onSubmit={handleSend}
-            /> */}
-            <AIInput onResult={handleAIResponse}  />
-          </div>
-        </BlurFade>
+      <div className="flex h-screen flex-col">
+        <div className="mx-auto my-8 w-full max-w-3xl px-4 sm:px-6">
+          <AIInput onResult={handleAIResponse} />
+        </div>
+
+        {/* AI Response Modal */}
+        {aiResponse && <AIResponseModal open={modalOpen} onClose={() => setModalOpen(false)} data={aiResponse} />}
       </div>
+
     </div>
   );
 }
