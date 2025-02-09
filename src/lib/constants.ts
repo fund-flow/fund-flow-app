@@ -1,4 +1,4 @@
-import { LayoutDashboard, PiggyBank } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import config from "../../package.json";
 
 /**

@@ -52,7 +52,7 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
     setSuccess(null);
 
     try {
-    // TODO Replace with backend API endpoint
+      // TODO Replace with backend API endpoint
       const response = await fetch("https://your-backend.com/api/automate-purchase", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,8 +67,12 @@ export function AIResponseModal({ open, onClose, data }: AIResponseModalProps) {
       }
 
       setSuccess("Purchase automated successfully!");
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || "Something went wrong.");
+      } else {
+        setError("Something went wrong.");
+      }
     } finally {
       setLoading(false);
     }

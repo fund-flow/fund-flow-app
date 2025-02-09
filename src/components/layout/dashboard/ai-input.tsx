@@ -4,7 +4,7 @@ import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 
 interface AIInputProps {
-  onResult: (response: any) => void; // Callback to handle API response
+  onResult: (response: unknown) => void; // Callback to handle API response
 }
 
 export function AIInput({ onResult }: AIInputProps) {
@@ -28,13 +28,16 @@ export function AIInput({ onResult }: AIInputProps) {
     };
 
     try {
-      const response = await fetch("https://autonome.alt.technology/agent-xpbncg/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        "https://autonome.alt.technology/agent-xpbncg/chat",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`API error: ${response.statusText}`);
@@ -42,8 +45,12 @@ export function AIInput({ onResult }: AIInputProps) {
 
       const data = await response.json();
       onResult(data); // Pass the API response back to the parent component
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || "Something went wrong.");
+      } else {
+        setError("Something went wrong.");
+      }
     } finally {
       setLoading(false);
     }
@@ -56,8 +63,14 @@ export function AIInput({ onResult }: AIInputProps) {
     >
       {/* Diversification Level */}
       <div>
-        <label className="block text-gray-700 font-semibold mb-1">Diversification Level</label>
+        <label
+          className="block text-gray-700 font-semibold mb-1"
+          htmlFor="diversification"
+        >
+          Diversification Level
+        </label>
         <select
+          id="diversification"
           value={diversification}
           onChange={(e) => setDiversification(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
@@ -70,8 +83,14 @@ export function AIInput({ onResult }: AIInputProps) {
 
       {/* Risk Tolerance */}
       <div>
-        <label className="block text-gray-700 font-semibold mb-1">Risk Tolerance</label>
+        <label
+          className="block text-gray-700 font-semibold mb-1"
+          htmlFor="riskTolerance"
+        >
+          Risk Tolerance
+        </label>
         <select
+          id="riskTolerance"
           value={riskTolerance}
           onChange={(e) => setRiskTolerance(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
@@ -84,8 +103,14 @@ export function AIInput({ onResult }: AIInputProps) {
 
       {/* Investment Horizon */}
       <div>
-        <label className="block text-gray-700 font-semibold mb-1">Investment Horizon</label>
+        <label
+          className="block text-gray-700 font-semibold mb-1"
+          htmlFor="investmentHorizon"
+        >
+          Investment Horizon
+        </label>
         <select
+          id="investmentHorizon"
           value={investmentHorizon}
           onChange={(e) => setInvestmentHorizon(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
@@ -97,13 +122,20 @@ export function AIInput({ onResult }: AIInputProps) {
 
       {/* Investment Amount */}
       <div>
-        <label className="block text-gray-700 font-semibold mb-1">Investment Amount ($)</label>
+        <label
+          className="block text-gray-700 font-semibold mb-1"
+          htmlFor="amount"
+        >
+          Investment Amount ($)
+        </label>
         <input
+          id="amount"
           type="number"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
           className="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
           min="1"
+          placeholder="Enter amount"
         />
       </div>
 

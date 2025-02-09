@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import BlurFade from "@/components/ui/blur-fade";
 import TypingAnimation from "@/components/ui/typing-animation";
-import { ConversationInput } from "@/components/layout/dashboard/conversation-input";
 import { AIInput } from "@/components/layout/dashboard/ai-input";
 import { AIResponseModal } from "@/components/layout/dashboard/ai-response-modal";
 import {
@@ -27,14 +26,20 @@ function SectionTitle({ children }: SectionTitleProps) {
   );
 }
 
+interface AIResponseData {
+  assets: string[];
+  allocations: number[];
+  analysis: { asset_name: string; reason: string }[];
+}
+
 export function DashboardMain() {
   const [chatId] = useState(() => uuidv4());
   const [isClient, setIsClient] = useState(false);
-  const suggestions = useMemo(() => getRandomSuggestions(4), []); 
-  const [aiResponse, setAiResponse] = useState<{ assets: string[]; allocations: number[]; analysis: { asset_name: string; reason: string }[] } | null>(null);
+  const suggestions = useMemo(() => getRandomSuggestions(4), []);
+  const [aiResponse, setAiResponse] = useState<AIResponseData | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { input, handleSubmit, setInput } = useChat({
+  const { setInput } = useChat({
     id: chatId,
     initialMessages: [] as Message[],
     body: { id: chatId },
@@ -50,21 +55,16 @@ export function DashboardMain() {
     return null;
   }
 
-  // const handleSend = async (value: string) => {
-  //   if (!value.trim()) return;
-
-  //   const fakeEvent = {
-  //     preventDefault: () => {},
-  //     type: "submit",
-  //   } as React.FormEvent;
-
-  //   await handleSubmit(fakeEvent, {
-  //     data: value,
-  //   });
-  // };
-  const handleAIResponse = (data: any) => {
-    console.log("AI Response:", data);
-    if (data && Array.isArray(data.assets) && Array.isArray(data.allocations) && Array.isArray(data.analysis)) {
+  const handleAIResponse = (response: unknown) => {
+    console.log("AI Response:", response);
+    if (
+      response &&
+      typeof response === "object" &&
+      "assets" in response &&
+      "allocations" in response &&
+      "analysis" in response
+    ) {
+      const data = response as AIResponseData;
       setAiResponse(data);
       setModalOpen(true);
     }
@@ -111,9 +111,14 @@ export function DashboardMain() {
         </div>
 
         {/* AI Response Modal */}
-        {aiResponse && <AIResponseModal open={modalOpen} onClose={() => setModalOpen(false)} data={aiResponse} />}
+        {aiResponse && (
+          <AIResponseModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            data={aiResponse}
+          />
+        )}
       </div>
-
     </div>
   );
 }
